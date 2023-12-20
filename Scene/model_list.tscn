@@ -1,0 +1,59 @@
+[gd_scene load_steps=2 format=3 uid="uid://brsjmhxuiikjh"]
+
+[ext_resource type="Script" path="res://Scripts/model_list.gd" id="1_4sbir"]
+
+[node name="ModelList" type="Control" node_paths=PackedStringArray("mymodel_data_request", "mymodel_image_request", "favorite_data_request", "favorite_image_request", "mymodel_base_button", "favorite_base_button")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_4sbir")
+mymodel_data_request = NodePath("MyModel/MyModelDataRequest")
+mymodel_image_request = NodePath("MyModel/MyModelImageRequest")
+favorite_data_request = NodePath("FavoriteModel/FavoriteModelDataRequest")
+favorite_image_request = NodePath("FavoriteModel/FavoriteModelImageRequest")
+mymodel_base_button = NodePath("MyModel/MyModelSelectButton")
+favorite_base_button = NodePath("FavoriteModel/FavoriteModelSelectButton")
+
+[node name="MyModel" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="MyModelDataRequest" type="HTTPRequest" parent="MyModel"]
+use_threads = true
+
+[node name="MyModelSelectButton" type="Button" parent="MyModel"]
+layout_mode = 0
+offset_left = 25.0
+offset_top = 25.0
+offset_right = 175.0
+offset_bottom = 175.0
+
+[node name="MyModelImageRequest" type="HTTPRequest" parent="MyModel"]
+use_threads = true
+
+[node name="FavoriteModel" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="FavoriteModelDataRequest" type="HTTPRequest" parent="FavoriteModel"]
+use_threads = true
+
+[node name="FavoriteModelSelectButton" type="Button" parent="FavoriteModel"]
+layout_mode = 0
+offset_left = 25.0
+offset_top = 200.0
+offset_right = 175.0
+offset_bottom = 350.0
+
+[node name="FavoriteModelImageRequest" type="HTTPRequest" parent="FavoriteModel"]
+use_threads = true
+
+[connection signal="request_completed" from="MyModel/MyModelDataRequest" to="." method="_on_mymodel_data_request_request_completed"]
+[connection signal="request_completed" from="MyModel/MyModelImageRequest" to="." method="_on_mymodel_image_request_request_completed"]
+[connection signal="request_completed" from="FavoriteModel/FavoriteModelDataRequest" to="." method="_on_favorite_data_request_request_completed"]
+[connection signal="request_completed" from="FavoriteModel/FavoriteModelImageRequest" to="." method="_on_favorite_image_request_request_completed"]

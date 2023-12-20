@@ -1,0 +1,59 @@
+[gd_scene load_steps=2 format=3 uid="uid://drth28nfjwr4h"]
+
+[ext_resource type="Script" path="res://Scripts/model_loader.gd" id="1_ql5rt"]
+
+[node name="ModelLoader" type="Node3D"]
+script = ExtResource("1_ql5rt")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.989016, 0.147809, 0, -0.147809, 0.989016, 0, 1.2, 1.2)
+
+[node name="LicenseRequest" type="HTTPRequest" parent="."]
+
+[node name="ModelRequest" type="HTTPRequest" parent="."]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 1.2)
+sky_mode = 1
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Walk" type="Button" parent="Control"]
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0
+text = "Walk Animation"
+
+[node name="Run" type="Button" parent="Control"]
+layout_mode = 0
+offset_top = 35.0
+offset_right = 131.0
+offset_bottom = 66.0
+text = "Run Animation"
+
+[node name="Kick" type="Button" parent="Control"]
+layout_mode = 0
+offset_top = 69.0
+offset_right = 131.0
+offset_bottom = 100.0
+text = "Kick Animation"
+
+[node name="Default" type="Button" parent="Control"]
+layout_mode = 0
+offset_top = 104.0
+offset_right = 131.0
+offset_bottom = 135.0
+text = "Default Pose"
+
+[connection signal="request_completed" from="LicenseRequest" to="." method="_on_license_request_request_completed"]
+[connection signal="request_completed" from="ModelRequest" to="." method="_on_model_request_request_completed"]
+[connection signal="pressed" from="Control/Walk" to="." method="_on_walk_pressed"]
+[connection signal="pressed" from="Control/Run" to="." method="_on_run_pressed"]
+[connection signal="pressed" from="Control/Kick" to="." method="_on_kick_pressed"]
+[connection signal="pressed" from="Control/Default" to="." method="_on_default_pressed"]
